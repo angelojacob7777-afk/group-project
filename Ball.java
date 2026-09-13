@@ -17,6 +17,7 @@ public class Ball extends Actor
     private int speed;
     private boolean hasBouncedHorizontally;
     private boolean hasBouncedVertically;
+    private boolean hasBouncedOffMovingPaddle;
     private int delay;
 
     /**
@@ -54,6 +55,7 @@ public class Ball extends Actor
             move(speed);
             checkBounceOffWalls();
             checkBounceOffCeiling();
+            checkBounceOffMovingPaddle();
             checkRestart();
         }
     }    
@@ -119,6 +121,27 @@ public class Ball extends Actor
             hasBouncedVertically = false;
         }
     }
+    
+        private void checkBounceOffMovingPaddle()
+    {
+        Actor paddle = getOneIntersectingObject(MovingPaddle.class);
+        
+        if (paddle != null)
+        {
+            if (getY() > paddle.getY())
+            {
+                if (!hasBouncedOffMovingPaddle)
+                {
+                    revertVertically();
+                    hasBouncedOffMovingPaddle = true;
+                }
+            }
+        }
+        else
+        {
+            hasBouncedOffMovingPaddle = false;
+        }
+    }
 
     /**
      * Check to see if the ball should be restarted.
@@ -162,6 +185,7 @@ public class Ball extends Actor
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
         hasBouncedVertically = false;
+        hasBouncedOffMovingPaddle = false;
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
 

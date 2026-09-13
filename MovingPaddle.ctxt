@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=MovingPaddle
+comment1.params=width\ height\ movingRight
+comment1.target=MovingPaddle(int,\ int,\ boolean)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=world\ enterFromLeft
+comment3.target=void\ respawnOnOtherSide(greenfoot.World,\ boolean)
+numComments=4
